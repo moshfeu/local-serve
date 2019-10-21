@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <a href="/files">Files</a>
+  </div>
+  <form action="/" method="POST" enctype="multipart/form-data">
+    <input name="file" type="file" />
+    <button>Submit!</button>
+    <hr />
+    <pre id="pre"></pre>
+  </form>
+  <script src="node_modules/axios/dist/axios.min.js"></script>
+  <script>
+    document.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault();
+      try {
+        const body = new FormData(e.target);
+        pre.innerHTML = JSON.stringify(body.getAll('file').map(f => f.name), null, 2);
+        axios.post('/upload', body, {
+          onUploadProgress: progressEvent => {
+            var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+            pre.textContent = `${percentCompleted}%`;
+          }
+        }).then (data => {
+          alert('done');
+        }).catch(e => {
+          alert(e)
+        });
+      } catch (error) {
+        alert('111', JSON.stringify(error, null, 2));
+      }
+    })
+  </script>
+</body>
+
+</html>
