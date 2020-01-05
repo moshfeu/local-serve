@@ -18,7 +18,7 @@
     <hr />
     <pre id="pre"></pre>
   </form>
-  <script src="node_modules/axios/dist/axios.min.js"></script>
+  <script src="/axios/dist/axios.min.js"></script>
   <script>
     document.querySelector('form').addEventListener('submit', e => {
       e.preventDefault();
@@ -36,7 +36,8 @@
           alert(e)
         });
       } catch (error) {
-        alert('111', JSON.stringify(error, null, 2));
+        alert(error.message);
+        pre.textContent = error.message;
       }
     })
   </script>

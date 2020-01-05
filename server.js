@@ -1,13 +1,15 @@
 const express = require('express')
 const handler = require('serve-handler');
 const fileUpload = require('express-fileupload');
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 const dns = require('dns');
 const os = require('os');
 const port = 5000;
 
 const app = express();
 app.use(fileUpload());
+
+app.use("/axios", express.static(join(__dirname, 'node_modules/axios')));
 
 const targetFolder = `${__dirname}/files`;
 
