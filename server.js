@@ -10,6 +10,7 @@ const app = express();
 app.use(fileUpload());
 
 app.use("/axios", express.static(join(__dirname, 'node_modules/axios')));
+app.use( express.static('files'));
 
 const targetFolder = `${__dirname}/files`;
 
